@@ -1,0 +1,68 @@
+<section class="card">
+  <h2>Thêm sách mới</h2>
+  <p>Mã sản phẩm phải bắt đầu bằng <strong>{{student.productPrefix}}</strong>. Giá sau thuế được tự động tính với VAT <strong>{{student.vatRate}}%</strong>.</p>
+
+  {{#if message}}
+    <div class="alert success">{{message}}</div>
+  {{/if}}
+  {{#if error}}
+    <div class="alert error">{{error}}</div>
+  {{/if}}
+
+  <form action="/books" method="post" class="book-form">
+    <label>
+      Mã sản phẩm
+      <input name="productCode" required placeholder="112BOOK001" pattern="112.*" title="Mã phải bắt đầu bằng 112">
+    </label>
+    <label>
+      Tên sách
+      <input name="title" required placeholder="Điện toán đám mây">
+    </label>
+    <label>
+      Tác giả
+      <input name="author" required placeholder="Nguyễn Văn A">
+    </label>
+    <label>
+      Giá trước thuế
+      <input name="priceBeforeTax" required type="number" min="0" step="1000" placeholder="100000">
+    </label>
+    <button type="submit">Thêm sách</button>
+  </form>
+</section>
+
+<section class="card">
+  <div class="section-heading">
+    <h2>Danh sách sách</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Mã</th>
+          <th>Tên sách</th>
+          <th>Tác giả</th>
+          <th>Giá trước thuế</th>
+          <th>VAT</th>
+          <th>Giá sau thuế</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each books}}
+          <tr>
+            <td>{{productCode}}</td>
+            <td>{{title}}</td>
+            <td>{{author}}</td>
+            <td>{{formatCurrency priceBeforeTax}}</td>
+            <td>{{vatRate}}%</td>
+            <td>{{formatCurrency priceAfterTax}}</td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="6" class="empty">Chưa có sách nào.</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
