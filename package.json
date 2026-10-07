@@ -5,10 +5,10 @@
   "description": "Ứng dụng quản lý sách cho bài giữa kỳ Điện toán đám mây",
   "main": "src/server.js",
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
+    "dev": "node --tls-max-v1.2 --watch src/server.js",
+    "start": "node --tls-max-v1.2 src/server.js",
     "test": "node --test",
-    "verify:permissions": "node scripts/verify-permissions.js"
+    "verify:permissions": "node --tls-max-v1.2 scripts/verify-permissions.js"
   },
   "engines": {
     "node": ">=20 <25"

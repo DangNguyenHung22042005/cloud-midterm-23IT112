@@ -3,7 +3,7 @@
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
-const { MongoStore } = require("connect-mongo");
+const MongoStore = require("connect-mongo");
 const { engine } = require("express-handlebars");
 const { COLLECTIONS, STUDENT } = require("./config/constants");
 const { createBookRouter } = require("./routes/books");
