@@ -2,8 +2,10 @@
 
 const path = require("path");
 const express = require("express");
+const session = require("express-session");
+const { MongoStore } = require("connect-mongo");
 const { engine } = require("express-handlebars");
-const { STUDENT } = require("./config/constants");
+const { COLLECTIONS, STUDENT } = require("./config/constants");
 const { createBookRouter } = require("./routes/books");
 
 function formatCurrency(value) {
@@ -30,6 +32,27 @@ function createApp({ config, readClientPromise, writeClientPromise }) {
 
   app.use(express.urlencoded({ extended: false, limit: "20kb" }));
   app.use(express.static(path.join(__dirname, "..", "public")));
+
+  app.use(
+    session({
+      name: "midterm.sid",
+      secret: config.sessionSecret,
+      resave: false,
+      saveUninitialized: false,
+      store: MongoStore.create({
+        clientPromise: writeClientPromise,
+        dbName: config.dbName,
+        collectionName: COLLECTIONS.sessions,
+        autoRemove: "disabled"
+      }),
+      cookie: {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: config.nodeEnv === "production",
+        maxAge: 60 * 60 * 1000
+      }
+    })
+  );
 
   app.get("/health", async (_req, res) => {
     try {

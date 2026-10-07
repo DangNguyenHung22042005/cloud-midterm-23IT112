@@ -19,11 +19,18 @@ function createBookRouter({ config, readClientPromise, writeClientPromise }) {
         .sort({ createdAt: -1 })
         .toArray();
 
+      const message = req.session.message || null;
+      const error = req.session.error || null;
+      delete req.session.message;
+      delete req.session.error;
+      req.session.pageViews = (req.session.pageViews || 0) + 1;
+
       res.render("books", {
         pageTitle: "Quản lý sách",
         books,
-        message: req.query.message || null,
-        error: req.query.error || null,
+        message,
+        error,
+        pageViews: req.session.pageViews,
         student: STUDENT
       });
     } catch (error) {
@@ -41,15 +48,12 @@ function createBookRouter({ config, readClientPromise, writeClientPromise }) {
         .collection(COLLECTIONS.books)
         .insertOne(book);
 
-      const message = encodeURIComponent(
-        `Đã thêm sách ${book.productCode} với VAT ${book.vatRate}%.`
-      );
-      res.redirect(`/books?message=${message}`);
+      req.session.message = `Đã thêm sách ${book.productCode} với VAT ${book.vatRate}%.`;
+      res.redirect("/books");
     } catch (error) {
       if (error.message && !error.message.includes("Mongo")) {
-        return res
-          .status(400)
-          .redirect(`/books?error=${encodeURIComponent(error.message)}`);
+        req.session.error = error.message;
+        return res.status(400).redirect("/books");
       }
 
       return next(error);
