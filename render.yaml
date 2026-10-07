@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: book-manager-23it112
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_NAME
+        value: DB_23IT112
+      - key: MONGODB_READ_URI
+        sync: false
+      - key: MONGODB_WRITE_URI
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true

@@ -1,0 +1,23 @@
+{
+  "name": "cloud-midterm-23it112",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ứng dụng quản lý sách cho bài giữa kỳ Điện toán đám mây",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "verify:permissions": "node scripts/verify-permissions.js"
+  },
+  "engines": {
+    "node": ">=20 <25"
+  },
+  "dependencies": {
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.1",
+    "express-session": "^1.18.2",
+    "mongodb": "^6.20.0"
+  }
+}
