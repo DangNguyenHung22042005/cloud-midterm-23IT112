@@ -1,0 +1,111 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #172033;
+  background: #f3f6fb;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; }
+
+.container {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.site-header {
+  color: white;
+  background: linear-gradient(135deg, #123d73, #1d70b8);
+  padding: 34px 0;
+}
+
+.site-header h1 { margin: 0 0 8px; }
+.site-header p { margin: 0; opacity: .9; }
+
+main { padding: 28px 0; }
+
+.card {
+  background: white;
+  border: 1px solid #dce4ef;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(21, 47, 78, .07);
+  margin-bottom: 24px;
+  padding: 24px;
+}
+
+.card h2 { margin-top: 0; }
+
+.book-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #bcc9d9;
+  border-radius: 8px;
+  font: inherit;
+  padding: 11px 12px;
+}
+
+button {
+  justify-self: start;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 20px;
+  color: white;
+  background: #1769aa;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.alert {
+  border-radius: 8px;
+  margin: 16px 0;
+  padding: 12px 14px;
+}
+
+.success { background: #e4f6eb; color: #126234; }
+.error { background: #fde9e8; color: #8b1d18; }
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.session-badge {
+  border-radius: 999px;
+  background: #e8f1fb;
+  color: #174b7c;
+  padding: 7px 12px;
+  font-size: .9rem;
+}
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border-bottom: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+th { background: #f6f8fb; }
+.empty { text-align: center; color: #65758b; }
+
+.site-footer {
+  border-top: 1px solid #dce4ef;
+  background: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .book-form { grid-template-columns: 1fr; }
+  .section-heading { align-items: flex-start; flex-direction: column; }
+}
