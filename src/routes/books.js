@@ -2,7 +2,10 @@
 
 const express = require("express");
 const { COLLECTIONS, STUDENT } = require("../config/constants");
-const { prepareBook } = require("../middleware/validateBook");
+const {
+  BookValidationError,
+  prepareBook
+} = require("../middleware/validateBook");
 
 function createBookRouter({ config, readClientPromise, writeClientPromise }) {
   const router = express.Router();
@@ -51,7 +54,7 @@ function createBookRouter({ config, readClientPromise, writeClientPromise }) {
       req.session.message = `Đã thêm sách ${book.productCode} với VAT ${book.vatRate}%.`;
       res.redirect("/books");
     } catch (error) {
-      if (error.message && !error.message.includes("Mongo")) {
+      if (error instanceof BookValidationError) {
         req.session.error = error.message;
         return res.status(400).redirect("/books");
       }
